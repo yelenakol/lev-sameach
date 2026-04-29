@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>סוכן חשבוניות — בלב שמח</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #fdf6ee;
+  --surface:   #fffcf7;
+  --card:      #ffffff;
+  --border:    #e8ddd0;
+  --border2:   #d4c4b0;
+  --text:      #3a2e22;
+  --text2:     #7a6a58;
+  --text3:     #b09880;
+  --brown:     #6b4c2a;
+  --brown-l:   #f5ede2;
+  --cream:     #f0e4d0;
+  --gold:      #c8973a;
+  --gold-l:    #fdf0da;
+  --green:     #4a7c59;
+  --green-l:   #eaf3ec;
+  --radius:    14px;
+  --shadow:    0 4px 24px rgba(107,76,42,0.10);
+  --shadow2:   0 2px 8px rgba(107,76,42,0.08);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Heebo', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 4rem;
+  background-image: radial-gradient(circle at 20% 20%, rgba(200,151,58,0.06) 0%, transparent 60%),
+                    radial-gradient(circle at 80% 80%, rgba(107,76,42,0.05) 0%, transparent 60%);
+}
+
+/* ───── HEADER ───── */
+.header {
+  width: 100%;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: var(--shadow2);
+  margin-bottom: 2rem;
+  animation: slideDown 0.5s ease both;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: var(--cream);
+  padding: 4px;
+  border: 1.5px solid var(--border);
+}
+
+.logo-placeholder {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  background: var(--cream);
+  border: 1.5px dashed var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logo-placeholder:hover { background: var(--gold-l); }
+
+.logo-text h1 {
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--brown);
+  line-height: 1.2;
+}
+.logo-text p {
+  font-size: 0.78rem;
+  color: var(--text2);
+  margin-top: 2px;
+}
+
+.header-badge {
+  background: var(--gold-l);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 0.72rem;
+  color: var(--brown);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* ───── MAIN ───── */
+.main {
+  width: 100%;
+  max-width: 720px;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ───── CARD ───── */
+.section-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  animation: fadeUp 0.5s ease both;
+}
+.section-card:nth-child(2) { animation-delay: 0.05s; }
+.section-card:nth-child(3) { animation-delay: 0.1s; }
+.section-card:nth-child(4) { animation-delay: 0.15s; }
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text2);
+  letter-spacing: 0.02em;
+}
+
+.icon-badge {
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.icon-badge.brown { background: var(--brown-l); }
+.icon-badge.gold  { background: var(--gold-l);  }
+.icon-badge.green { background: var(--green-l); }
+
+/* ───── API KEY ───── */
+.api-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.9rem 1.25rem;
+}
+
+.api-row input {
+  flex: 1;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.84rem;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 14px;
+  color: var(--text);
+  outline: none;
+  direction: ltr;
+  text-align: left;
+  transition: border-color 0.2s;
+}
+.api-row input:focus { border-color: var(--gold); }
+.api-row input::placeholder { color: var(--text3); }
+
+.status-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--border2);
+  flex-shrink: 0;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.status-dot.ok {
+  background: var(--green);
+  box-shadow: 0 0 0 3px var(--green-l);
+}
+
+/* ───── UPLOAD ───── */
+.drop-zone {
+  margin: 1rem 1.25rem;
+  border: 2px dashed var(--border2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--bg);
+}
+.drop-zone:hover, .drop-zone.over {
+  border-color: var(--gold);
+  background: var(--gold-l);
+}
+.drop-zone input { display: none; }
+
+.drop-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.drop-text { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+.drop-text strong { color: var(--brown); font-weight: 600; }
+
+.preview-box { display: none; position: relative; margin: 1rem 1.25rem; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--border); }
+.preview-box.show { display: block; }
+.preview-box img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
+.preview-overlay {
+  position: absolute; inset: 0;
+  background: rgba(58,46,34,0.55);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: 0.2s; cursor: pointer;
+  gap: 8px;
+}
+.preview-box:hover .preview-overlay { opacity: 1; }
+.preview-overlay span {
+  background: white; color: var(--brown);
+  border-radius: 8px; padding: 6px 16px;
+  font-size: 0.8rem; font-weight: 600;
+}
+
+.file-badge {
+  display: none;
+  margin: 0.75rem 1.25rem 1rem;
+  background: var(--green-l);
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  color: var(--green);
+  font-weight: 500;
+  gap: 6px;
+  align-items: center;
+}
+.file-badge.show { display: flex; }
+
+/* ───── QUICK BUTTONS ───── */
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 1rem 1.25rem;
+}
+
+.q-btn {
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.18s;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  line-height: 1.3;
+}
+.q-btn:hover {
+  background: var(--brown-l);
+  border-color: var(--brown);
+  color: var(--brown);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow2);
+}
+.q-btn .q-icon { font-size: 1rem; flex-shrink: 0; }
+
+/* ───── MESSAGES ───── */
+.msg-area {
+  padding: 1.25rem;
+  min-height: 200px;
+  max-height: 440px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.empty-msg {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text3);
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+.empty-msg .empty-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+.bubble-row { display: flex; gap: 10px; align-items: flex-start; }
+.bubble-row.user { flex-direction: row-reverse; }
+
+.avatar {
+  width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.01em;
+}
+.avatar.agent { background: var(--brown-l); color: var(--brown); border: 1.5px solid var(--border); }
+.avatar.user  { background: var(--brown);   color: #fff; }
+
+.bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.bubble.agent {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top-right-radius: 4px;
+  color: var(--text);
+}
+.bubble.user {
+  background: var(--brown);
+  color: #fff;
+  border-top-left-radius: 4px;
+}
+.bubble.loading { color: var(--text3); font-style: italic; }
+
+/* ───── INPUT ───── */
+.input-bar {
+  border-top: 1px solid var(--border);
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  background: var(--surface);
+}
+
+.input-bar textarea {
+  flex: 1;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.88rem;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: var(--text);
+  resize: none;
+  outline: none;
+  min-height: 44px;
+  max-height: 130px;
+  line-height: 1.5;
+  transition: border-color 0.2s;
+}
+.input-bar textarea:focus { border-color: var(--gold); }
+.input-bar textarea::placeholder { color: var(--text3); }
+
+.send-btn {
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0 20px;
+  height: 44px;
+  border-radius: 12px;
+  border: none;
+  background: var(--brown);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(107,76,42,0.3);
+}
+.send-btn:hover:not(:disabled) {
+  background: var(--gold);
+  box-shadow: 0 4px 12px rgba(200,151,58,0.4);
+  transform: translateY(-1px);
+}
+.send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ───── ERR ───── */
+.err-bar {
+  display: none;
+  margin: 0.5rem 1.25rem 0.75rem;
+  padding: 9px 14px;
+  background: #fff0f0;
+  border: 1px solid #f0c0c0;
+  border-radius: 9px;
+  font-size: 0.8rem;
+  color: #8b2020;
+}
+
+/* ───── FOOTER ───── */
+.footer {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: var(--text3);
+  text-align: center;
+  line-height: 1.8;
+}
+.footer a { color: var(--text2); text-decoration: underline; }
+
+/* ───── LOGO UPLOAD HINT ───── */
+.logo-upload-hint {
+  font-size: 0.7rem;
+  color: var(--text3);
+  text-align: center;
+  padding: 0.3rem 1.25rem 0.8rem;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pop {
+  0%   { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+.bubble-row { animation: pop 0.25s ease both; }
+
+/* Scrollbar */
+.msg-area::-webkit-scrollbar { width: 5px; }
+.msg-area::-webkit-scrollbar-track { background: transparent; }
+.msg-area::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-area">
+    <label for="logoUpload" style="cursor:pointer">
+      <img id="logoImg" class="logo-img" src="" alt="לוגו" style="display:none"/>
+      <div class="logo-placeholder" id="logoPlaceholder" title="לחץ להעלאת לוגו">🍞</div>
+      <input type="file" id="logoUpload" accept="image/*" style="display:none" onchange="loadLogo(this)"/>
+    </label>
+    <div class="logo-text">
+      <h1>בלב שמח</h1>
+      <p>סוכן חשבוניות חכם</p>
+    </div>
+  </div>
+  <div class="header-badge">⚡ מופעל על ידי Claude AI</div>
+</div>
+
+<div class="main">
+
+  <!-- API KEY -->
+  <div class="section-card">
+    <div class="section-title">
+      <div class="icon-badge brown">🔑</div>
+      מפתח API
+    </div>
+    <div class="api-row">
+      <div class="status-dot" id="apiDot"></div>
+      <input type="password" id="apiKey" placeholder="הדבק כאן את מפתח ה-API שלך (sk-ant-...)"
+        autocomplete="off" oninput="onKeyInput()" dir="ltr"/>
+    </div>
+    <div style="padding: 0 1.25rem 0.9rem; font-size: 0.74rem; color: var(--text3);">
+      קבל מפתח חינם בכתובת
+      <a href="https://console.anthropic.com" target="_blank" style="color: var(--gold); text-decoration: none; font-weight: 600;">console.anthropic.com</a>
+    </div>
+  </div>
+
+  <!-- UPLOAD -->
+  <div class="section-card">
+    <div class="section-title">
+      <div class="icon-badge gold">📄</div>
+      העלאת חשבונית
+    </div>
+
+    <div class="drop-zone" id="dropZone"
+      onclick="document.getElementById('invoiceFile').click()"
+      ondragover="onDrag(event,true)" ondragleave="onDrag(event,false)" ondrop="onDrop(event)">
+      <input type="file" id="invoiceFile" accept="image/*,.pdf" onchange="loadInvoice(this.files[0])"/>
+      <div id="dropPrompt">
+        <div class="drop-icon">📋</div>
+        <p class="drop-text"><strong>לחץ או גרור חשבונית לכאן</strong><br/>תמונה (JPG/PNG) או PDF</p>
+      </div>
+    </div>
+
+    <div class="preview-box" id="previewBox">
+      <img id="previewImg" src="" alt="תצוגה מקדימה"/>
+      <div class="preview-overlay" onclick="clearInvoice(event)">
+        <span>🗑 הסר</span>
+      </div>
+    </div>
+
+    <div class="file-badge" id="fileBadge">
+      <span>✅</span>
+      <span id="fileNameLabel">קובץ נטען בהצלחה</span>
+    </div>
+  </div>
+
+  <!-- QUICK BUTTONS -->
+  <div class="section-card">
+    <div class="section-title">
+      <div class="icon-badge green">⚡</div>
+      שאלות מהירות
+    </div>
+    <div class="quick-grid">
+      <button class="q-btn" onclick="useQ('מה המחיר האחרון של פריט מספר ')">
+        <span class="q-icon">💰</span> מחיר לפי מספר פריט
+      </button>
+      <button class="q-btn" onclick="useQ('רשום את כל הפריטים והמחירים מהחשבונית')">
+        <span class="q-icon">📋</span> כל הפריטים מהחשבונית
+      </button>
+      <button class="q-btn" onclick="useQ('מה תאריך החשבונית ושם הספק?')">
+        <span class="q-icon">🏢</span> פרטי הספק והתאריך
+      </button>
+      <button class="q-btn" onclick="useQ('חפש פריט לפי קוד מוצר ')">
+        <span class="q-icon">🔍</span> חיפוש לפי קוד מוצר
+      </button>
+      <button class="q-btn" onclick="useQ('האם המחיר של פריט  השתנה לעומת הפעם הקודמת?')">
+        <span class="q-icon">📈</span> האם המחיר השתנה?
+      </button>
+      <button class="q-btn" onclick="useQ('סכם את סה״כ הזמנה בחשבונית זו')">
+        <span class="q-icon">🧾</span> סיכום כולל החשבונית
+      </button>
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="section-card">
+    <div class="section-title">
+      <div class="icon-badge brown">💬</div>
+      שיחה עם הסוכן
+    </div>
+
+    <div class="msg-area" id="msgArea">
+      <div class="empty-msg" id="emptyMsg">
+        <div class="empty-icon">🧑‍🍳</div>
+        <div>העלה חשבונית ושאל שאלה<br/>הסוכן יחלץ מחירים, פריטים ותאריכים</div>
+      </div>
+    </div>
+
+    <div class="err-bar" id="errBar"></div>
+
+    <div class="input-bar">
+      <textarea id="userInput" rows="1"
+        placeholder="שאל על מוצר, מספר פריט, מחיר..."
+        onkeydown="handleKey(event)"
+        oninput="autoResize(this)"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="send()" disabled>
+        שלח ↩
+      </button>
+    </div>
+  </div>
+
+  <div class="footer">
+    המפתח שלך לא נשמר בשום מקום — הוא קיים רק בלשונית הדפדפן הנוכחית.<br/>
+    <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> לקבלת מפתח חינם
+  </div>
+
+</div>
+
+<script>
+let fileData = null, fileType = null, history = [], loading = false;
+
+const SYSTEM = `אתה סוכן חשבוניות חכם של חנות "בלב שמח" — חנות המתמחה במוצרי אפייה וכלים חד פעמיים.
+המשתמש מעלה תמונות או PDF של חשבוניות ספק ושואל שאלות על מחירים ופריטים.
+
+תפקידך:
+- לחלץ מספרי פריט, קודי מוצר, שמות מוצרים, מחירים, כמויות, תאריכים
+- לענות בצורה ברורה ותמציתית בעברית
+- לציין: שם מוצר, מחיר, יחידת מידה, תאריך חשבונית, שם ספק
+- אם מבקשים השוואה — ציין את סכום השינוי ואת האחוז
+- אם לא מוצא משהו — ציין בדיוק מה אתה רואה בחשבונית
+- ענה תמיד בעברית, בצורה ידידותית ומקצועית`;
+
+function loadLogo(input) {
+  const f = input.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = e => {
+    document.getElementById('logoImg').src = e.target.result;
+    document.getElementById('logoImg').style.display = 'block';
+    document.getElementById('logoPlaceholder').style.display = 'none';
+  };
+  r.readAsDataURL(f);
+}
+
+function onKeyInput() {
+  const k = document.getElementById('apiKey').value.trim();
+  const ok = k.startsWith('sk-ant') && k.length > 20;
+  document.getElementById('apiDot').className = 'status-dot' + (ok ? ' ok' : '');
+  updateBtn();
+}
+
+function updateBtn() {
+  const k = document.getElementById('apiKey').value.trim();
+  const q = document.getElementById('userInput').value.trim();
+  document.getElementById('sendBtn').disabled = loading || !k || !q;
+}
+
+function loadInvoice(file) {
+  if (!file) return;
+  const r = new FileReader();
+  r.onload = e => {
+    fileData = e.target.result.split(',')[1];
+    fileType = file.type || 'image/jpeg';
+    if (file.type.startsWith('image/')) {
+      document.getElementById('previewImg').src = e.target.result;
+      document.getElementById('previewBox').classList.add('show');
+      document.getElementById('dropZone').style.display = 'none';
+      document.getElementById('fileBadge').style.display = 'none';
+    } else {
+      document.getElementById('dropZone').style.display = 'none';
+      document.getElementById('fileBadge').classList.add('show');
+      document.getElementById('fileNameLabel').textContent = file.name;
+    }
+  };
+  r.readAsDataURL(file);
+}
+
+function clearInvoice(e) {
+  e.stopPropagation();
+  fileData = null; fileType = null;
+  document.getElementById('previewBox').classList.remove('show');
+  document.getElementById('fileBadge').classList.remove('show');
+  document.getElementById('dropZone').style.display = '';
+  document.getElementById('invoiceFile').value = '';
+}
+
+function onDrag(e, over) {
+  e.preventDefault();
+  document.getElementById('dropZone').classList.toggle('over', over);
+}
+function onDrop(e) {
+  e.preventDefault();
+  document.getElementById('dropZone').classList.remove('over');
+  loadInvoice(e.dataTransfer.files[0]);
+}
+
+function useQ(t) {
+  const ta = document.getElementById('userInput');
+  ta.value = t; ta.focus();
+  autoResize(ta); updateBtn();
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 130) + 'px';
+  updateBtn();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+}
+
+function addBubble(role, text, isLoading) {
+  const area = document.getElementById('msgArea');
+  const em = document.getElementById('emptyMsg');
+  if (em) em.remove();
+
+  const row = document.createElement('div');
+  row.className = 'bubble-row ' + role;
+
+  const av = document.createElement('div');
+  av.className = 'avatar ' + role;
+  av.textContent = role === 'user' ? 'אתה' : 'AI';
+
+  const bub = document.createElement('div');
+  bub.className = 'bubble ' + role + (isLoading ? ' loading' : '');
+  bub.textContent = isLoading ? '🔍 קורא את החשבונית...' : text;
+
+  row.appendChild(av); row.appendChild(bub);
+  area.appendChild(row);
+  area.scrollTop = area.scrollHeight;
+  return bub;
+}
+
+async function send() {
+  const key = document.getElementById('apiKey').value.trim();
+  const text = document.getElementById('userInput').value.trim();
+  if (!text || !key || loading) return;
+
+  loading = true;
+  document.getElementById('sendBtn').disabled = true;
+  document.getElementById('errBar').style.display = 'none';
+  document.getElementById('userInput').value = '';
+  document.getElementById('userInput').style.height = 'auto';
+
+  addBubble('user', text);
+  const loadBub = addBubble('agent', '', true);
+
+  const content = [];
+  if (fileData) {
+    content.push(fileType === 'application/pdf'
+      ? { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: fileData } }
+      : { type: 'image',    source: { type: 'base64', media_type: fileType, data: fileData } });
+  }
+  content.push({ type: 'text', text });
+  history.push({ role: 'user', content });
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1024,
+        system: SYSTEM,
+        messages: history,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error?.message || 'שגיאה ' + res.status);
+
+    const reply = data.content?.filter(b => b.type === 'text').map(b => b.text).join('\n') || 'לא התקבלה תשובה.';
+    loadBub.classList.remove('loading');
+    loadBub.textContent = reply;
+    history.push({ role: 'assistant', content: reply });
+
+  } catch (err) {
+    loadBub.parentElement.remove();
+    const eb = document.getElementById('errBar');
+    eb.textContent = '⚠️ ' + err.message;
+    eb.style.display = 'block';
+    history.pop();
+  }
+
+  loading = false;
+  document.getElementById('sendBtn').disabled = false;
+  updateBtn();
+  document.getElementById('msgArea').scrollTop = 9999;
+}
+</script>
+</body>
+</html>
