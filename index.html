@@ -440,12 +440,8 @@ async function loadAllInvoices() {
 
     showChat(allFilesData.length);
     setStatus(`✅ ${allFilesData.length} חשבוניות נטענו`);
-
-    // Hide setup after a moment
-    setTimeout(() => {
-      document.getElementById('setupPanel').style.display = 'none';
-      setupVisible = false;
-    }, 1500);
+    document.getElementById('setupPanel').style.display = 'none';
+    setupVisible = false;
 
   } catch(e) {
     setStatus('❌ שגיאה: ' + e.message);
@@ -454,9 +450,14 @@ async function loadAllInvoices() {
 }
 
 function showChat(count) {
-  document.getElementById('chatCard').style.display = '';
-  document.getElementById('filesCount').textContent = `${count} חשבוניות נטענו`;
-  document.getElementById('sendBtn').disabled = false;
+  const chat = document.getElementById('chatCard');
+  chat.style.display = '';
+  chat.style.visibility = 'visible';
+  chat.style.opacity = '1';
+  document.getElementById('filesCount').textContent = count > 0 ? `${count} חשבוניות נטענו` : 'ממתין לקבצים...';
+  document.getElementById('sendBtn').disabled = count === 0;
+  // scroll into view
+  setTimeout(() => chat.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 }
 
 // ─── DRIVE HELPERS ───
